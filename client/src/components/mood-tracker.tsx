@@ -1,77 +1,45 @@
 "use client"
 
-import { useState } from "react"
+import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Heart } from "lucide-react"
+import { Smile } from "lucide-react"
 
 interface MoodTrackerProps {
   onMoodSelect: (mood: string) => void
 }
 
-export function MoodTracker({ onMoodSelect }: MoodTrackerProps) {
-  const [selectedMood, setSelectedMood] = useState<string | null>(null)
-  const [todayMood, setTodayMood] = useState<string | null>(null)
+const moods = [
+  { emoji: "😊", label: "Happy", color: "bg-green-400" },
+  { emoji: "😌", label: "Calm", color: "bg-blue-400" },
+  { emoji: "😐", label: "Neutral", color: "bg-gray-400" },
+  { emoji: "😔", label: "Sad", color: "bg-purple-400" },
+  { emoji: "😤", label: "Frustrated", color: "bg-red-400" },
+]
 
-  const moods = [
-    { emoji: "😄", label: "Excellent", value: "excellent" },
-    { emoji: "🙂", label: "Good", value: "good" },
-    { emoji: "😐", label: "Okay", value: "okay" },
-    { emoji: "😔", label: "Bad", value: "bad" },
-    { emoji: "😢", label: "Terrible", value: "terrible" },
-  ]
-
-  const handleMoodSelect = (mood: (typeof moods)[0]) => {
-    setSelectedMood(mood.value)
-    setTodayMood(mood.emoji)
-    onMoodSelect(mood.value)
-  }
-
+export const MoodTracker: React.FC<MoodTrackerProps> = ({ onMoodSelect }) => {
   return (
     <Card className="bg-gray-900 border-gray-800">
       <CardHeader className="pb-3">
-        <CardTitle className="flex items-center space-x-2 text-pink-400">
-          <Heart className="w-5 h-5" />
+        <CardTitle className="flex items-center space-x-2 text-blue-400">
+          <Smile className="w-5 h-5" />
           <span>Mood Tracker</span>
         </CardTitle>
       </CardHeader>
       <CardContent>
-        {todayMood ? (
-          <div className="text-center">
-            <div className="text-4xl mb-2">{todayMood}</div>
-            <p className="text-gray-400 text-sm">Today's mood recorded!</p>
+        <div className="grid grid-cols-5 gap-2">
+          {moods.map((mood) => (
             <Button
+              key={mood.label}
+              onClick={() => onMoodSelect(mood.label)}
+              className={`h-auto flex flex-col items-center p-3 ${mood.color} hover:opacity-90 text-gray-900`}
               variant="ghost"
-              size="sm"
-              onClick={() => {
-                setTodayMood(null)
-                setSelectedMood(null)
-              }}
-              className="mt-2 text-gray-400 hover:text-white"
             >
-              Change mood
+              <span className="text-2xl mb-1">{mood.emoji}</span>
+              <span className="text-xs font-medium">{mood.label}</span>
             </Button>
-          </div>
-        ) : (
-          <div className="space-y-3">
-            <p className="text-gray-400 text-sm text-center">How are you feeling today?</p>
-            <div className="grid grid-cols-5 gap-2">
-              {moods.map((mood) => (
-                <Button
-                  key={mood.value}
-                  variant="ghost"
-                  className={`
-                    h-12 text-2xl hover:bg-gray-800 transition-all
-                    ${selectedMood === mood.value ? "bg-gray-800 scale-110" : ""}
-                  `}
-                  onClick={() => handleMoodSelect(mood)}
-                >
-                  {mood.emoji}
-                </Button>
-              ))}
-            </div>
-          </div>
-        )}
+          ))}
+        </div>
       </CardContent>
     </Card>
   )

@@ -104,18 +104,18 @@ export function StreakCalendar() {
               variant="ghost"
               size="icon"
               onClick={() => navigateMonth("prev")}
-              className="h-8 w-8 text-gray-400 hover:text-white"
+              className="h-8 w-8 text-gray-400 hover:text-white hover:bg-gray-800"
             >
               <ChevronLeft className="w-4 h-4" />
             </Button>
-            <span className="text-sm font-semibold min-w-[80px] text-center">
+            <span className="text-sm font-semibold min-w-[80px] text-center text-gray-400">
               {monthNames[currentDate.getMonth()]} {currentDate.getFullYear()}
             </span>
             <Button
               variant="ghost"
               size="icon"
               onClick={() => navigateMonth("next")}
-              className="h-8 w-8 text-gray-400 hover:text-white"
+              className="h-8 w-8 text-gray-400 hover:text-white hover:bg-gray-800"
             >
               <ChevronRight className="w-4 h-4" />
             </Button>
