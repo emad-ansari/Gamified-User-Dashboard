@@ -9,7 +9,7 @@ A modern web application that gamifies daily productivity by turning user activi
   - Experience points (XP) for completing activities
   - Level progression system
   - Visual XP progress bar
-  - Achievement badges for milestones
+  - Achievement milestones
 
 - **✅ Habit & Task Tracking**
   - Daily habit tracking
