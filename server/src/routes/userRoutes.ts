@@ -2,8 +2,8 @@ import { RequestHandler, Router } from 'express';
 import { auth } from '../middleware/auth';
 import { getUserProfile } from '../controllers/profile/profileController';
 import { updateXP } from '../controllers/xp/xpController';
-import { updateMood } from '../controllers/mood/moodController';
-import { updateStreak } from '../controllers/streak/streakController';
+import { updateMood, getMoodHistory } from '../controllers/mood/moodController';
+import { updateStreak, getStreakCalendar } from '../controllers/streak/streakController';
 import { deleteHabit } from '../controllers/habits/habitsController';
 import { updateHabit } from '../controllers/habits/habitsController';
 import { addHabit } from '../controllers/habits/habitsController';
@@ -21,10 +21,12 @@ router.get('/profile', getUserProfile as RequestHandler);
 router.post('/xp', updateXP as RequestHandler);
 
 // Streak routes
-router.post('/streak', updateStreak as RequestHandler);   
+router.post('/streak', updateStreak as RequestHandler);
+router.get('/streak/calendar', getStreakCalendar as RequestHandler);
 
 // Mood tracking routes
 router.post('/mood', updateMood as RequestHandler);
+router.get('/mood/history', getMoodHistory as RequestHandler);
 
 // Habits routes
 router.get('/habits', getHabits as RequestHandler);
