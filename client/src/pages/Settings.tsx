@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+
 import { Switch } from "@/components/ui/switch";
 import { Settings as SettingsIcon, Bell, Moon, Shield } from "lucide-react";
 import { SideBar } from "@/components/sidebar";
-import { useToast } from "@/hooks/useToast";
+
 
 interface SettingsState {
   notifications: boolean;
@@ -24,7 +23,7 @@ export const Settings: React.FC = () => {
 
   const handleSave = () => {
     // TODO: Implement settings save functionality
-    toast.showToast('Settings saved successfully!', 'success');
+    toast.success('Settings saved successfully!');
   };
 
   const handleSettingChange = (key: keyof SettingsState, value: boolean) => {

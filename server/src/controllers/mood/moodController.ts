@@ -52,5 +52,5 @@ const getMoodValue = (mood: string): number => {
     'Sad': 3,
     'Frustrated': 2
   };
-  return moodValues[mood] || 5; // Default to neutral if mood not found
+  return moodValues[mood] || 5;
 }; 

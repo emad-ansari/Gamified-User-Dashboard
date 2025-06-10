@@ -10,6 +10,7 @@ import { StreakCalendar } from "@/components/streak-calendar"
 import { MoodTracker } from "@/components/mood-tracker"
 import { HabitsSection } from "@/components/habits-section"
 import { SideBar } from "@/components/sidebar"
+import { DashboardHeader } from "@/components/dashboard-header"
 import { useDashboard } from "@/hooks/useDashboard"
 import { useNavigate } from "react-router-dom"
 
@@ -18,25 +19,11 @@ export default function Dashboard() {
   const { profile, loading, updateStreak, updateMood, saveJournalEntry, addXP } = useDashboard();
   const [journalEntry, setJournalEntry] = useState("");
   const [currentTime] = useState(new Date());
+
   useEffect(() => {
     const token = localStorage.getItem("Gtoken");
     if(!token) navigate('/');
   }, [navigate])
-
-  const formatTime = (date: Date) => {
-    return date.toLocaleTimeString("en-US", {
-      hour: "2-digit",
-      minute: "2-digit",
-      hour12: true,
-    });
-  };
-
-  const getGreeting = () => {
-    const hour = currentTime.getHours();
-    if (hour < 12) return "Good Morning";
-    if (hour < 17) return "Good Afternoon";
-    return "Good Evening";
-  };
 
   if (loading) {
     return (
@@ -58,37 +45,10 @@ export default function Dashboard() {
     <div className="min-h-screen bg-gray-950 text-white">
       <SideBar/>
       <div className="ml-16 p-6">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center space-x-4">
-            <Avatar className="w-12 h-12">
-              <AvatarImage src="/placeholder-user.jpg" />
-              <AvatarFallback className="bg-lime-400 text-gray-900 font-semibold">
-                {profile.username.split(" ").map(n => n[0]).join("")}
-              </AvatarFallback>
-            </Avatar>
-            <div>
-              <h1 className="text-2xl font-bold">{getGreeting()}, {profile.username}!</h1>
-              <p className="text-gray-400">
-                {currentTime.toLocaleDateString("en-US", {
-                  weekday: "long",
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                })}
-              </p>
-            </div>
-          </div>
-          <div className="text-right">
-            <p className="text-sm text-gray-400">Current Time</p>
-            <p className="text-xl font-mono">{formatTime(currentTime)}</p>
-          </div>
-        </div>
+        <DashboardHeader profile={profile} currentTime={currentTime} />
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Left Column */}
           <div className="lg:col-span-2 space-y-6">
-            {/* XP and Level Section */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <Card className="bg-gray-900 border-gray-800">
                 <CardHeader className="pb-3">
@@ -127,7 +87,6 @@ export default function Dashboard() {
               </Card>
             </div>
 
-            {/* Streak and Mood */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <Card className="bg-gray-900 border-gray-800">
                 <CardHeader className="pb-3">
@@ -154,7 +113,6 @@ export default function Dashboard() {
               <MoodTracker onMoodSelect={updateMood} />
             </div>
 
-            {/* Journal Section */}
             <Card className="bg-gray-900 border-gray-800">
               <CardHeader>
                 <CardTitle className="flex items-center space-x-2 text-blue-400">
@@ -184,13 +142,10 @@ export default function Dashboard() {
               </CardContent>
             </Card>
 
-            {/* Habits Section */}
             <HabitsSection onHabitComplete={(xp) => addXP(xp)} />
           </div>
 
-          {/* Right Column */}
           <div className="space-y-6">
-            {/* Achievements */}
             <Card className="bg-gray-900 border-gray-800">
               <CardHeader>
                 <CardTitle className="flex items-center space-x-2 text-yellow-400">
@@ -223,10 +178,8 @@ export default function Dashboard() {
               </CardContent>
             </Card>
 
-            {/* Streak Calendar */}
             <StreakCalendar />
 
-            {/* Quick Stats */}
             <Card className="bg-gray-900 border-gray-800">
               <CardHeader>
                 <CardTitle className="flex items-center space-x-2 text-green-400">
