@@ -8,6 +8,7 @@ export const signup = async (req: Request, res: Response) => {
   try {
     const { username, email, password } = req.body;
 
+
     // Check if user already exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
@@ -56,6 +57,7 @@ export const signup = async (req: Request, res: Response) => {
 export const login = async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;
+      console.log('user details: ', email, password)
 
     // Find user by email
     const user = await User.findOne({ email });
