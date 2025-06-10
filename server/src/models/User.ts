@@ -14,8 +14,18 @@ interface IMood {
   date: Date;
 }
 
+interface IJournalEntry {
+  content: string;
+  date: Date;
+}
+
+interface IStreakDay {
+  date: Date;
+  status: 'completed' | 'missed' | 'none';
+}
+
 export interface IUser extends Document {
-  name: string;
+  username: string;
   email: string;
   password: string;
   level: number;
@@ -23,8 +33,10 @@ export interface IUser extends Document {
   maxXp: number;
   streak: number;
   lastCheckIn: Date | null;
+  streakHistory: IStreakDay[];
   habits: IHabit[];
   moodHistory: IMood[];
+  journalEntries: IJournalEntry[];
   createdAt: Date;
   updatedAt: Date;
 }
@@ -39,8 +51,20 @@ const habitSchema = new mongoose.Schema({
   }
 });
 
+const streakDaySchema = new mongoose.Schema({
+  date: {
+    type: Date,
+    required: true
+  },
+  status: {
+    type: String,
+    enum: ['completed', 'none'],
+    required: true
+  }
+});
+
 const userSchema = new mongoose.Schema({
-  name: {
+  username: {
     type: String,
     required: true,
     trim: true,
@@ -76,9 +100,17 @@ const userSchema = new mongoose.Schema({
     type: Date,
     default: null,
   },
+  streakHistory: [streakDaySchema],
   habits: [habitSchema],
   moodHistory: [{
     mood: String,
+    date: {
+      type: Date,
+      default: Date.now,
+    }
+  }],
+  journalEntries: [{
+    content: String,
     date: {
       type: Date,
       default: Date.now,
