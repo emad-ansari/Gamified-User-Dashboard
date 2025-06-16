@@ -52,7 +52,7 @@ export const useAuth = () => {
     setLoading(true);
     setError(null);
     try {
-      const res = await axios.post<AuthResponse>(`${API}/login`, {
+      const res = await axios.post<AuthResponse>(`${API}/auth/login`, {
         email,
         password,
       });
