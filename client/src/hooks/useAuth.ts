@@ -24,13 +24,13 @@ export const useAuth = () => {
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
 
-  const API = 'http://localhost:8000/api/auth'; 
+  const API = process.env.API_URL; 
 
   const signup = async (username: string, email: string, password: string) => {
     setLoading(true);
     setError(null);
     try {
-      const res = await axios.post<AuthResponse>(`${API}/signup`, {
+      const res = await axios.post<AuthResponse>(`${API}/auth/signup`, {
         username,
         email,
         password,
