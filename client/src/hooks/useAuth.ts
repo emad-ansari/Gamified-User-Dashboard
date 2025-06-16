@@ -52,7 +52,7 @@ export const useAuth = () => {
     setLoading(true);
     setError(null);
     try {
-      const res = await axios.post<AuthResponse>(`${API}/auth/login`, {
+      const res = await axios.post<AuthResponse>(`https://daily-xp.onrender.com/api/auth/login`, {
         email,
         password,
       });
