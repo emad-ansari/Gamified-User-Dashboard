@@ -31,7 +31,7 @@ export const api = {
     const token = this.getToken();
     
     try {
-      const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+      const response = await fetch(`${API_BASE_URL}/api/${endpoint}`, {
         ...options,
         headers: {
           'Content-Type': 'application/json',
