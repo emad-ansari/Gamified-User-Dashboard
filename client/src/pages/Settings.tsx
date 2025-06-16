@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-
 import { Switch } from "@/components/ui/switch";
 import { Settings as SettingsIcon, Bell, Moon, Shield } from "lucide-react";
 import { SideBar } from "@/components/sidebar";
+import { useToast } from '@/hooks/useToast';
 
 
 interface SettingsState {
@@ -23,7 +23,7 @@ export const Settings: React.FC = () => {
 
   const handleSave = () => {
     // TODO: Implement settings save functionality
-    toast.success('Settings saved successfully!');
+    toast.showToast('Settings saved successfully!', 'success');
   };
 
   const handleSettingChange = (key: keyof SettingsState, value: boolean) => {
