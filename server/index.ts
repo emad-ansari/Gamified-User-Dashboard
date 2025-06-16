@@ -1,4 +1,4 @@
-require('dotenv').config()
+require("dotenv").config();
 import express from "express";
 import cors from "cors";
 import { connectDB } from "./src/config/db";
@@ -11,18 +11,28 @@ const app = express();
 
 const MONGO_URI = process.env.MONGODB_URL as string;
 
-app.use(cors());
+app.use(
+	cors({
+		origin: [
+			"http://localhost:5173", // Local frontend
+			"https://daily-xp.vercel.app/", // Deployed frontend
+		],
+    credentials: true,    
+	})
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use('/api/auth', authRoutes);
-app.use('/api/user', userRoutes);
-app.use('/api/journal', journalRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/user", userRoutes);
+app.use("/api/journal", journalRoutes);
 
-connectDB(MONGO_URI).then(() => {
-  app.listen(PORT, () => {
-    console.log(`🚀 Server is running at http://localhost:${PORT}`);
-  });
-}).catch(err => {
-  console.error('Failed to connect to MongoDB:', err);
-});
+connectDB(MONGO_URI)
+	.then(() => {
+		app.listen(PORT, () => {
+			console.log(`🚀 Server is running at http://localhost:${PORT}`);
+		});
+	})
+	.catch((err) => {
+		console.error("Failed to connect to MongoDB:", err);
+	});
