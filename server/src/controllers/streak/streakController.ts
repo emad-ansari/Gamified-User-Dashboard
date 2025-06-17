@@ -3,6 +3,7 @@ import User from '../../models/User';
 
 export const updateStreak = async (req: Request, res: Response) => {
   try {
+    console.log("update streak route hit")
     const user = await User.findById(req.userId);
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
