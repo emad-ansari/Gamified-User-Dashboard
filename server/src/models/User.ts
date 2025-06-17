@@ -58,7 +58,7 @@ const streakDaySchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ['completed', 'none'],
+    enum: ['completed', 'missed', 'none'],
     required: true
   }
 });
