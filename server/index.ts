@@ -6,12 +6,17 @@ import authRoutes from "./src/routes/authRoutes";
 import userRoutes from "./src/routes/userRoutes";
 import journalRoutes from "./src/routes/journalRoutes";
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 8000;
 const app = express();
 
 const MONGO_URI = process.env.MONGODB_URL as string;
 
-app.use(cors());
+app.use(cors({
+	origin: [
+		"https://daily-xp.vercel.app",
+		"https://localhost:8000"
+	]
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.get('/', (req, res) => {
