@@ -3,6 +3,7 @@ import User from '../../models/User';
 
 export const getUserProfile = async (req: Request, res: Response) => {
   try {
+    console.log('profile rout hit')
     const user = await User.findById(req.userId).select('-password');
 
     if (!user) {
