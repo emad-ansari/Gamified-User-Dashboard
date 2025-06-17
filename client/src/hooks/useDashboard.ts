@@ -39,6 +39,7 @@ export const useDashboard = () => {
     console.log('user profile fetch before')
     try {
       const response = await api.user.getProfile() as { data: UserProfile, error?: string };
+       toast.showToast("profile load successfully", "success");
       if (response.error) {
         throw new Error(response.error);
       }

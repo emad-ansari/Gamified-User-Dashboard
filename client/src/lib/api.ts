@@ -30,7 +30,7 @@ export const api = {
 
   async request<T>(endpoint: string, options: RequestInit = {}): Promise<ApiResponse<T>> {
     const token = this.getToken();
-    
+    console.log('DEBUGG BEFORE ');
     try {
       const response = await fetch(`${API_BASE_URL}${endpoint}`, {
         ...options,
@@ -40,8 +40,9 @@ export const api = {
           ...options.headers,
         },
       });
-
+      console.log('DEBUGG: ', response);
       const data = await response.json();
+    
 
       if (!response.ok) {
         throw new Error(data.message || 'Something went wrong');
