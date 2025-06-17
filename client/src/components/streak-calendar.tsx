@@ -75,7 +75,7 @@ export function StreakCalendar() {
       day
     );
     const foundStreak = streakDays.find(streak => streak.date === dateKey);
-    console.log('Looking for streak on', dateKey, 'found:', foundStreak);
+
     return foundStreak;
   }
 

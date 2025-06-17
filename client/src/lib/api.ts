@@ -1,5 +1,4 @@
-const API_BASE_URL = import.meta.env.VITE_API_URL;
-console.log('this is api url: ', API_BASE_URL);
+const API_BASE_URL = import.meta.env.VITE_API_URL
 
 interface ApiResponse<T = any> {
   data?: T;
@@ -30,7 +29,7 @@ export const api = {
 
   async request<T>(endpoint: string, options: RequestInit = {}): Promise<ApiResponse<T>> {
     const token = this.getToken();
-    console.log('DEBUGG BEFORE ');
+    
     try {
       const response = await fetch(`${API_BASE_URL}${endpoint}`, {
         ...options,
@@ -90,7 +89,6 @@ export const api = {
   // User profile endpoints
   user: {
     async getProfile() {
-      console.log('get profile method called')
       return api.request('/user/profile');
     },
   },
@@ -107,7 +105,9 @@ export const api = {
 
   // Streak endpoints
   streak: {
+    
     async update() {
+      console.log("streak update get's called")
       return api.request('/user/streak', {
         method: 'POST',
       });
