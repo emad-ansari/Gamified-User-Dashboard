@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+const API_BASE_URL = import.meta.env.VITE_API_URL;
 
 interface User {
   _id: string;
@@ -24,13 +25,11 @@ export const useAuth = () => {
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
 
-  const API = process.env.API_URL; 
-
   const signup = async (username: string, email: string, password: string) => {
     setLoading(true);
     setError(null);
     try {
-      const res = await axios.post<AuthResponse>(`${API}/auth/signup`, {
+      const res = await axios.post<AuthResponse>(`${API_BASE_URL}/auth/signup`, {
         username,
         email,
         password,
@@ -52,7 +51,7 @@ export const useAuth = () => {
     setLoading(true);
     setError(null);
     try {
-      const res = await axios.post<AuthResponse>(`https://daily-xp.onrender.com/api/auth/login`, {
+      const res = await axios.post<AuthResponse>(`${API_BASE_URL}/auth/login`, {
         email,
         password,
       });

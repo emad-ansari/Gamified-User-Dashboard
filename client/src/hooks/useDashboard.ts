@@ -36,11 +36,13 @@ export const useDashboard = () => {
   }, []);
 
   const fetchUserProfile = async () => {
+    console.log('user profile fetch before')
     try {
       const response = await api.user.getProfile() as { data: UserProfile, error?: string };
       if (response.error) {
         throw new Error(response.error);
       }
+      console.log('this is response data: ', response.data)
       setProfile(response.data);
       setLoading(false);
     } catch (error) {

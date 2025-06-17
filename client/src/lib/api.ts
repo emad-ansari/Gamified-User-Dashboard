@@ -1,4 +1,5 @@
-const API_BASE_URL = process.env.API_URL;
+const API_BASE_URL = import.meta.env.VITE_API_URL;
+console.log('this is api url: ', API_BASE_URL);
 
 interface ApiResponse<T = any> {
   data?: T;
@@ -31,7 +32,7 @@ export const api = {
     const token = this.getToken();
     
     try {
-      const response = await fetch(`${API_BASE_URL}/api/${endpoint}`, {
+      const response = await fetch(`${API_BASE_URL}${endpoint}`, {
         ...options,
         headers: {
           'Content-Type': 'application/json',
