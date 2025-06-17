@@ -14,7 +14,7 @@ const MONGO_URI = process.env.MONGODB_URL as string;
 app.use(cors({
 	origin: [
 		"https://daily-xp.vercel.app",
-		"https://localhost:8000"
+		"http://localhost:5173"
 	]
 }));
 app.use(express.json());
